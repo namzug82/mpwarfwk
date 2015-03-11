@@ -7,7 +7,7 @@
  */
 namespace src;
 
-class Request {
+class Routing {
 
 
     private $url;
