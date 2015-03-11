@@ -16,8 +16,8 @@ class Routing {
 
 
     }
-    public function route(){
-       return "homeController";
+    public function route($url){
+       return $url;
     }
 
 
