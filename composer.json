@@ -3,10 +3,11 @@
 	"description": "Standard APP using MPWAR Framework",
 	
 	"package": {
-                "name": "rjsanchez23/mpwarfwkv",
-                "version": "develop",
-                "source": {
-                    "url": "https://github.com/rjsanchez23/mpwarfwk.git",
-                    "type": "git"
-                }
+        "name": "rjsanchez23/mpwarfwkv",
+        "version": "develop",
+        "source": {
+            "url": "https://github.com/rjsanchez23/mpwarfwk.git",
+            "type": "git"
+        }
+    }
 }
