@@ -5,7 +5,7 @@
  * Date: 09/03/2015
  * Time: 20:48
  */
-namespace src;
+namespace component;
 
 class Bootstrap {
 
