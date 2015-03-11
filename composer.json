@@ -3,7 +3,7 @@
 	"description": "Standard APP using MPWAR Framework",
 
 	"autoload": {
-		"psr4":{
+		"psr-4":{
 			"src\\": "src/"
 		} 
 	}
