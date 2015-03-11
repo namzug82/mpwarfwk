@@ -5,6 +5,7 @@
  * Date: 09/03/2015
  * Time: 20:48
  */
+namespace src;
 
 class Bootstrap {
 
