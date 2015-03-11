@@ -17,8 +17,10 @@ class Routing {
         var_dump($this->parseUrl(),$this->config );
         var_dump(array_search($this->parseUrl(), $this->config));
 
-
-        return array_search($this->parseUrl(), $this->config);
+        if(array_key_exists($this->parseUrl(), $this->config)){
+            return $this->config[$this->parseUrl()];
+        }
+        return false;
     }
 
     public function parseUrl(){
