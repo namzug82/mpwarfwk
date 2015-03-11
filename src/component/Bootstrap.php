@@ -17,7 +17,10 @@ class Bootstrap {
 
     public function execute(){
         $route = new Routing($this->url());
-        var_dump(key($route->route()));
+        $controller = key($route->route());
+        $newController = new $controller();
+        $newController->$route->route()[0];
+
     }
     public function url(){
         return $_SERVER['REQUEST_URI'];
