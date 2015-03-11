@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Ricardo
- * Date: 09/03/2015
- * Time: 20:49
- */
+
 namespace src\component;
 
 class Routing {
@@ -13,7 +8,7 @@ class Routing {
     private $url;
     function __construct($url)
     {
-        $this->config = require("../config/routingConfig.php");
+        $this->config = require(__DIR__."/../config/routingConfig.php");
         $this->url = $url;
 
     }
