@@ -1,8 +1,13 @@
 {
-    "name": "rjsanchez/mpwarfwk-standard-edition",
+    "name": "rjsanchez23/mpwarfwk",
 	"description": "Standard APP using MPWAR Framework",
-	"license": "Apache-2.0",
-	"keywords": [],
-
-	"type": "project"
+	
+	"package": {
+                "name": "rjsanchez23/mpwarfwkv",
+                "version": "develop",
+                "source": {
+                    "url": "https://github.com/rjsanchez23/mpwarfwk.git",
+                    "type": "git",
+                    "reference": "3.6.2"
+                },
 }
