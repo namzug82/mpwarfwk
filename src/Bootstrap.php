@@ -12,6 +12,6 @@ class Bootstrap {
 
     public function __construct(Request $request)
     {
-        var_dump($request);
+        var_dump($request->url());
     }
 }
