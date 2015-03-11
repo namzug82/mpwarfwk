@@ -10,7 +10,7 @@ namespace src\component;
 class Bootstrap {
 
 
-    public function __construct(Request $request)
+    public function __construct(Routing $request)
     {
         var_dump($request->url());
     }
