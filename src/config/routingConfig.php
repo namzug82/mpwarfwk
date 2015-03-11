@@ -5,8 +5,8 @@
  * Date: 11/03/2015
  * Time: 20:17
  */
-return array (array(
+return array (
     'Hello'   => array(
         'HelloController' => 'init'
     )
-));
+);

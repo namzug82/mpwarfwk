@@ -15,7 +15,7 @@ class Routing {
 
     public function route(){
         var_dump($this->parseUrl(),$this->config );
-        var_dump($this->parseUrl(),$this->config );
+
 
         return array_search($this->parseUrl(), $this->config);
     }
