@@ -9,15 +9,22 @@ namespace src\component;
 
 class Routing {
 
-
+    private $config;
 
     function __construct()
     {
-
+        $this->config = require("config/routingConfig.php");
 
     }
-    public function route($url){
-        return explode("/", $url);
+
+    public function Controller(){
+        var_dump($this->config);
+    }
+
+    public function parseUrl($url){
+        $param = explode("/", $url);
+        var_dump($this->config);
+        return $param[1];
     }
 
 
