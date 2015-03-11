@@ -16,8 +16,8 @@ class Bootstrap {
     }
 
     public function execute(){
-        $route = new Routing();
-        var_dump($route->parseUrl($this->url()));
+        $route = new Routing($this->url());
+        var_dump($route->route());
     }
     public function url(){
         return $_SERVER['REQUEST_URI'];
