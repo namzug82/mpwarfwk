@@ -2,7 +2,7 @@
 
 return array (
     'Hello'   => array(
-        'HelloController' => 'init'
+        'src\controller\HelloController' => 'init'
     ),
     'adios' => array(
         'HelloController' => 'close'
