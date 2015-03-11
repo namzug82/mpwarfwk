@@ -5,7 +5,7 @@
  * Date: 09/03/2015
  * Time: 20:49
  */
-namespace component;
+namespace src\component;
 
 class Routing {
 
