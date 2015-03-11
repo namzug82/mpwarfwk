@@ -10,8 +10,15 @@ namespace src\component;
 class Bootstrap {
 
 
-    public function __construct(Routing $request)
+    public function __construct()
     {
-        var_dump($request->url());
+        echo "bootstrap";
+    }
+
+    public function execute(){
+        var_dump( new Routing($this->url()));
+    }
+    public function url(){
+        return $_SERVER['REQUEST_URI'];
     }
 }
