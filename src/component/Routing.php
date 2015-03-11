@@ -17,7 +17,7 @@ class Routing {
 
     }
     public function route($url){
-       return parse_url($url);
+        return explode("/", $url);
     }
 
 
