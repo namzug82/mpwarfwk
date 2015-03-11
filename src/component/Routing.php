@@ -14,13 +14,11 @@ class Routing {
     }
 
     public function route(){
-        var_dump($this->parseUrl(),$this->config );
-        var_dump(array_search($this->parseUrl(), $this->config));
 
         if(array_key_exists($this->parseUrl(), $this->config)){
             return $this->config[$this->parseUrl()];
         }
-        return false;
+        throw new \Exception("mal mal");
     }
 
     public function parseUrl(){
