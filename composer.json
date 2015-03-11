@@ -7,7 +7,6 @@
                 "version": "develop",
                 "source": {
                     "url": "https://github.com/rjsanchez23/mpwarfwk.git",
-                    "type": "git",
-                    "reference": "3.6.2"
-                },
+                    "type": "git"
+                }
 }
