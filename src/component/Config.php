@@ -12,6 +12,6 @@ namespace src\Component;
 class Config {
     public static function detect(){
         $config = require("../app/Config/appConfig.php");
-        var_dump($config["type"]);
+        return $config["type"];
     }
 }

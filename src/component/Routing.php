@@ -8,8 +8,8 @@ class Routing {
     private $url;
     function __construct($url)
     {
-        var_dump(Config::detect());
-        $this->routingConfig = require("../app/Config/routingConfig.php");
+       $config = Config::detect();
+        $this->routingConfig = require("../app/Config/".$config."/routingConfig.".$config);
         $this->url = $url;
 
 
