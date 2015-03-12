@@ -12,6 +12,7 @@ class Environment {
 
     public static function detect(){
         $environment = require("../app/Config/appConfig.php");
+
         return $environment["env"];
     }
 
