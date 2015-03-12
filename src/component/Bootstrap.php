@@ -14,8 +14,9 @@ class Bootstrap {
         $route = new Routing($this->url());
         $controller = key($route->route());
         $newController = new $controller();
-        //var_dump($route->route()[$controller]);die();
-        $newController->$route->route()[$controller]();
+        $method = $route->route()[$controller];
+        var_dump($method);
+        //$newController->$route->route()[$controller]();
 
     }
     public function url(){
