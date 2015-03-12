@@ -17,6 +17,8 @@ class Bootstrap {
         $newController = new $controller;
         $method = $this->routing->method();
         $newController->$method();
+        $env = new Environment();
+        $env->detect();
 
     }
 
