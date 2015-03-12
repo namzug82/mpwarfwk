@@ -1,6 +1,6 @@
 <?php
 
-namespace src\component;
+namespace src\Component;
 
 class Bootstrap {
 
