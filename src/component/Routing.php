@@ -8,8 +8,9 @@ class Routing {
     private $url;
     function __construct($url)
     {
-        $this->routingConfig = require($_SERVER["DOCUMENT_ROOT"]."/../app/Config/routingConfig.php");
+        $this->routingConfig = require("../app/Config/routingConfig.php");
         $this->url = $url;
+
 
     }
 
@@ -25,19 +26,27 @@ class Routing {
 
     private function route()
     {
-        if(!array_key_exists($this->parseUrl(), $this->routingConfig)){
+        $route = $this->parseUrl();
+        if(!array_key_exists($route, $this->routingConfig)){
             throw new \Exception("No existe la ruta en el fichero de configuración");
         }
-        return $this->routingConfig[$this->parseUrl()];
+        return $this->routingConfig[$route];
     }
 
     private function parseUrl()
     {
-        $param = explode("/", $this->url);
 
-        return $param[1];
+        $path = '/';
+
+        if($this->url != '/'){
+            $path = substr($this->url, 1);
+            /*$path = explode("/", $this->url);
+            unset($path[0]);
+            $path = array_values($path);*/
+        }
+
+        return $path;
     }
-
 
 
 }
