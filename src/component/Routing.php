@@ -15,7 +15,6 @@ class Routing {
 
     public function controller()
     {
-        var_dump($this->route());
         return key($this->route());
     }
 

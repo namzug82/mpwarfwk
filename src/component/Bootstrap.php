@@ -15,7 +15,8 @@ class Bootstrap {
 
         $controller = $this->routing->controller();
         $newController = new $controller;
-        $newController->$this->routing->method();
+        $method = $this->routing->method();
+        $newController->$method();
 
     }
 
