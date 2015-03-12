@@ -9,14 +9,10 @@
 namespace src\Component;
 
 class Environment {
-    private $environment;
-    function __construct()
-    {
-        $this->environment = require("../app/Config/appConfig.php");
 
+    public static function detect(){
+        $environment = require("../app/Config/appConfig.php");
+        return $environment["env"];
     }
 
-    public function detect(){
-        var_dump($this->environment);
-    }
 }
