@@ -4,7 +4,7 @@ namespace src\Component;
 
 class Routing {
 
-    private $config;
+    private $routingConfig;
     private $url;
     function __construct($url)
     {
@@ -13,21 +13,30 @@ class Routing {
 
     }
 
-    public function route(){
-
-        if(array_key_exists($this->parseUrl(), $this->config)){
-            return $this->config[$this->parseUrl()];
-        }
-        throw new \Exception("mal mal");
+    public function controller()
+    {
+        return key($this->route());
     }
 
-    public function parseUrl(){
+    public function method()
+    {
+        return $this->route()[key($this->route())];
+    }
+
+    private function route()
+    {
+        if(!array_key_exists($this->parseUrl(), $this->routingConfig)){
+            throw new \Exception("No existe la ruta en el fichero de configuración");
+        }
+        return $this->config[$this->parseUrl()];
+    }
+
+    private function parseUrl()
+    {
         $param = explode("/", $this->url);
 
         return $param[1];
     }
-
-
 
 
 

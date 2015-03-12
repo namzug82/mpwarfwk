@@ -4,22 +4,23 @@ namespace src\Component;
 
 class Bootstrap {
 
+    private $routing;
 
     public function __construct()
     {
-        echo "bootstrap";
+        $this->routing = new Routing($this->url());
     }
 
     public function execute(){
-        $route = new Routing($this->url());
-        $controller = key($route->route());
-        $newController = new $controller();
-        $method = $route->route()[$controller];
-        var_dump($method);
-        $newController->$method();
+
+        $controller = $this->$routing->controller();
+        $newController = new $controller;
+        $newController->$this->$routing->method();
 
     }
-    public function url(){
+
+    private function url(){
         return $_SERVER['REQUEST_URI'];
     }
+
 }
