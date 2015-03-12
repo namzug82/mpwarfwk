@@ -10,7 +10,7 @@
 
 	"autoload": {
 		"psr-4":{
-			"vendor\\rjsanchez23\\mpwarfwk\\src\\": "src/"
+			"src\\": "src/"
 		} 
 	}
 
