@@ -8,6 +8,7 @@ class Routing {
     private $url;
     function __construct($url)
     {
+        var_dump($url);
         $this->config = require($_SERVER["DOCUMENT_ROOT"]."/../app/Config/routingConfig.php");
         $this->url = $url;
 
