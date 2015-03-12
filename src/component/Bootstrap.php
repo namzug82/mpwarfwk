@@ -13,9 +13,9 @@ class Bootstrap {
 
     public function execute(){
 
-        $controller = $this->$routing->controller();
+        $controller = $this->routing->controller();
         $newController = new $controller;
-        $newController->$this->$routing->method();
+        $newController->$this->routing->method();
 
     }
 
