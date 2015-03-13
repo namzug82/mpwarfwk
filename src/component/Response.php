@@ -11,4 +11,7 @@ namespace src\Component;
 
 class Response {
 
+    public function json($response){
+
+    }
 }
