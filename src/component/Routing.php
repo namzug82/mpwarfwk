@@ -8,8 +8,9 @@ class Routing {
     private $url;
     function __construct($url)
     {
-       $config = Config::detect();
-        $this->routingConfig = require("../app/Config/".$config."/routingConfig.".$config);
+        $config = new config\Config();
+        $configExtension = $config->configFileType();
+        $this->routingConfig = require("../app/Config/".$configExtension."/routingConfig.".$configExtension);
         $this->url = $url;
 
 
@@ -41,9 +42,6 @@ class Routing {
 
         if($this->url != '/'){
             $path = substr($this->url, 1);
-            /*$path = explode("/", $this->url);
-            unset($path[0]);
-            $path = array_values($path);*/
         }
 
         return $path;
