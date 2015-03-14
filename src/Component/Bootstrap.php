@@ -2,9 +2,8 @@
 
 namespace src\Component;
 
-use src\component\Routes\RoutingPhp;
-use src\component\Routes\RoutingYml;
-use src\component\Routes\RoutingJson;
+
+use src\component\Routes\RoutingFactory;
 
 class Bootstrap {
 
@@ -17,9 +16,6 @@ class Bootstrap {
         //$this->routing = new RoutingYml($this->url());
         $this->config  = require("../app/Config/appConfig.php");
         $this->routing =  RoutingFactory::build($this->config["configType"], $this->url());
-
-
-
     }
 
     public function execute(){

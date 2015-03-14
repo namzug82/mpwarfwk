@@ -8,18 +8,16 @@
 
 namespace src\Component\Routes;
 
-use src\component\Routes\RoutingPhp;
-use src\component\Routes\RoutingYml;
-use src\component\Routes\RoutingJson;
 
 class RoutingFactory {
     public static function build($extension, $url)
     {
-        $routing = "Routing_" . ucwords(strtolower($extension));
+        $routing = "src\\component\\Routes\\Routing" . ucwords(strtolower($extension));
+        var_dump($routing);
         if(class_exists($routing)) {
             return new $routing($url);
         }else {
-            throw new Exception("Invalid file type given.");
+            throw new \Exception("Invalid file type given.");
         }
     }
 }
