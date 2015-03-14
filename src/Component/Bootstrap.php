@@ -12,8 +12,7 @@ class Bootstrap {
 
     public function __construct()
     {
-        //$this->routing = new RoutingPhp($this->url());
-        //$this->routing = new RoutingYml($this->url());
+
         $this->config  = require("../app/Config/appConfig.php");
         $this->routing =  RoutingFactory::build($this->config["configType"], $this->url());
     }
@@ -24,9 +23,6 @@ class Bootstrap {
         $newController = new $controller;
         $method = $this->routing->method();
         $newController->$method();
-
-
-
 
     }
 

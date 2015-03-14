@@ -77,6 +77,7 @@ abstract class Routing {
 
     private function saveParam($url, $paramVar){
         $_GET[$paramVar] = $url;
+        $_REQUEST[$paramVar] = $url;
     }
 
     abstract protected function parseConfigToArray();

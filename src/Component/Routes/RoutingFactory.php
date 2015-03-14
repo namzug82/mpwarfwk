@@ -13,7 +13,7 @@ class RoutingFactory {
     public static function build($extension, $url)
     {
         $routing = "src\\component\\Routes\\Routing" . ucwords(strtolower($extension));
-        var_dump($routing);
+
         if(class_exists($routing)) {
             return new $routing($url);
         }else {
