@@ -2,13 +2,14 @@
 
 namespace src\Component;
 
+use src\component\Routes\RoutingPhp;
 class Bootstrap {
 
     private $routing;
 
     public function __construct()
     {
-        $this->routing = new Routing($this->url());
+        $this->routing = new RoutingPhp($this->url());
     }
 
     public function execute(){
