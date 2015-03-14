@@ -3,6 +3,7 @@
 namespace src\Component;
 
 use src\component\Routes\RoutingPhp;
+
 class Bootstrap {
 
     private $routing;
@@ -12,7 +13,7 @@ class Bootstrap {
     {
         $this->routing = new RoutingPhp($this->url());
         $this->config = require("../app/Config/appConfig.php");
-        var_dump($this->config);
+
     }
 
     public function execute(){
@@ -23,10 +24,14 @@ class Bootstrap {
         $newController->$method();
 
 
+
+
     }
 
     private function url(){
+
         return $_SERVER['REQUEST_URI'];
+
     }
 
 }

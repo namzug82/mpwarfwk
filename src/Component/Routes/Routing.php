@@ -25,10 +25,13 @@ abstract class Routing {
     {
         $this->parseUrl();
         $this->parseConfigToArray();
+
         foreach($this->routingConfig as $routeKey => $currentRoute){
             $route = trim(filter_var($routeKey, FILTER_SANITIZE_URL), '/');
             $route = explode('/', $route);
+
             if($this->isValidRoute($this->url, $route)) return $currentRoute;
+
         }
 
     }
@@ -41,11 +44,7 @@ abstract class Routing {
 
     private function isValidRoute($url, $route)
     {
-
-        if(count($url) != count($route)) {
-            return false;
-        }
-        return $this->checkRoute($url, $route);
+        return (count($url) == count($route) && $this->checkRoute($url, $route));
     }
 
     private function checkRoute($url, $route)
