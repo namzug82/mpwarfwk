@@ -8,7 +8,7 @@ abstract class Routing {
     private $url;
     function __construct($url)
     {
-        $this->url = $url;
+        $this->url = strtolower($url);
     }
 
     public function controller()
@@ -27,12 +27,13 @@ abstract class Routing {
         $this->parseConfigToArray();
 
         foreach($this->routingConfig as $routeKey => $currentRoute){
-            $route = trim(filter_var($routeKey, FILTER_SANITIZE_URL), '/');
+            $route = trim(filter_var(strtolower($routeKey), FILTER_SANITIZE_URL), '/');
             $route = explode('/', $route);
 
             if($this->isValidRoute($this->url, $route)) return $currentRoute;
 
         }
+        throw new \Exception("No existe esa ruta");
 
     }
 

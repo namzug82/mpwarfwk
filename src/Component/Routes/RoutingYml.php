@@ -8,13 +8,14 @@
 
 namespace src\component\Routes;
 
-
+use Symfony\Component\Yaml\Parser;
 
 class RoutingYml extends Routing{
 
-    protected function parseConfigToArray(){
-
-        $this->routingConfig = require("../app/Config/php/routingConfig.php");
+    protected function parseConfigToArray()
+    {
+        $yaml = new Parser();
+        $this->routingConfig = $yaml->parse(file_get_contents('../app/Config/yml/routingConfig.yml'));
     }
 
 }

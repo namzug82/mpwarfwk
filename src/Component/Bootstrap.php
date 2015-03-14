@@ -3,6 +3,8 @@
 namespace src\Component;
 
 use src\component\Routes\RoutingPhp;
+use src\component\Routes\RoutingYml;
+use src\component\Routes\RoutingJson;
 
 class Bootstrap {
 
@@ -11,8 +13,12 @@ class Bootstrap {
 
     public function __construct()
     {
-        $this->routing = new RoutingPhp($this->url());
-        $this->config = require("../app/Config/appConfig.php");
+        //$this->routing = new RoutingPhp($this->url());
+        //$this->routing = new RoutingYml($this->url());
+        $this->config  = require("../app/Config/appConfig.php");
+        $this->routing =  RoutingFactory::build($this->config["configType"], $this->url());
+
+
 
     }
 
