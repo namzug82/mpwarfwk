@@ -3,7 +3,12 @@
 namespace src\Component;
 
 
-use src\component\Routes\RoutingFactory;
+use src\component\Routes\Routing;
+use Doctrine\ORM\Tools\Setup;
+use Doctrine\ORM\EntityManager;
+
+
+
 
 class Bootstrap {
 
@@ -14,7 +19,7 @@ class Bootstrap {
     {
 
         $this->config  = require("../app/Config/appConfig.php");
-        $this->routing =  RoutingFactory::build($this->config["configType"], $this->url());
+        $this->routing = new Routing ($this->url());
     }
 
     public function execute(){
@@ -23,6 +28,17 @@ class Bootstrap {
         $newController = new $controller;
         $method = $this->routing->method();
         $newController->$method();
+        $isDevMode = true;
+        $config = Setup::createYAMLMetadataConfiguration(array("../app/Config/yml"), $isDevMode);
+        $conn = array(
+            'driver' => 'pdo_sqlite',
+            'path' => __DIR__ . '/db.sqlite',
+        );
+        $entityManager = EntityManager::create($conn, $config);
+        //var_dump( $entityManager);
+
+
+
 
     }
 

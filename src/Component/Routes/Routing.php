@@ -2,7 +2,9 @@
 
 namespace src\Component\Routes;
 
-abstract class Routing {
+use src\Component\Config\ConfigFactory;
+
+class Routing {
 
     protected $routingConfig;
     private $url;
@@ -33,7 +35,7 @@ abstract class Routing {
             if($this->isValidRoute($this->url, $route)) return $currentRoute;
 
         }
-        throw new \Exception("No existe esa ruta");
+        throw new \Exception("Route not exists");
 
     }
 
@@ -80,6 +82,10 @@ abstract class Routing {
         $_REQUEST[$paramVar] = $url;
     }
 
-    abstract protected function parseConfigToArray();
+    private function parseConfigToArray(){
+        $config  = require("../app/Config/appConfig.php");
+        $config =  ConfigFactory::build($config["configType"]);
+        $this->routingConfig = $config->routes();
+    }
 
 }
