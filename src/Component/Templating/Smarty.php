@@ -23,7 +23,11 @@ class Smarty implements TemplatingInterface{
     public function render($template, $name, $string)
     {
         $this->smartyInstance->assign($name, $string);
+<<<<<<< HEAD
         return $this->smartyInstance->display($template);
+=======
+        $this->smartyInstance->display($template);
+>>>>>>> origin/develop
     }
     private function options(){
         $config  = require("../app/Config/appConfig.php");

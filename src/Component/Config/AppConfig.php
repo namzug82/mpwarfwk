@@ -1,10 +1,10 @@
 <?php
 
 
-namespace src\Component\Config;
+namespace src\Component\config;
 
 
-class AppConfig {
+class Config {
 
     private $configFile;
 
