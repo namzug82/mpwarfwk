@@ -10,15 +10,19 @@ class Routing {
     private $routingConfig;
     private $appConfig;
     private $request;
+    private $params;
+
 
 
     function __construct($request, $config)
     {
-        $this->request = strtolower($request->server->getValue('REQUEST_URI'));
+        $this->request = $request;
         $this->appConfig = $config;
+        $this->params = array();
+
     }
 
-    public function controller()
+   /* public function controller()
     {
         return key($this->route());
     }
@@ -26,10 +30,11 @@ class Routing {
     public function method()
     {
         return $this->route()[key($this->route())];
-    }
+    }*/
 
-    private function route()
+    public function route()
     {
+
         $url = strtolower($this->request->server->getValue('REQUEST_URI'));
         $url = $this->parseUrl($url);
         $this->parseConfigToArray();
@@ -38,7 +43,11 @@ class Routing {
             $route = trim(filter_var(strtolower($routeKey), FILTER_SANITIZE_URL), '/');
             $route = explode('/', $route);
 
-            if($this->isValidRoute($url, $route)) return $currentRoute;
+            if($this->isValidRoute($url, $route)){
+                $controller = key($currentRoute);
+                $method = $currentRoute[key($currentRoute)];
+                 return new Route($controller, $method, $this->params);
+            }
 
         }
         throw new \Exception("Route not exists");
@@ -85,7 +94,7 @@ class Routing {
 
     private function saveParam($url, $paramVar){
 
-        $this->request->get->setParameter(array($paramVar => $url));
+        $this->params[$paramVar] = $url;
 
     }
 

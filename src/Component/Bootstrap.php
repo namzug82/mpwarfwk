@@ -13,7 +13,7 @@ use src\Component\Store\SqlDatabase;
 
 class Bootstrap {
 
-    private $routing;
+    private $route;
     private $config;
 
 
@@ -28,11 +28,12 @@ class Bootstrap {
     public function execute(Request $request){
 
 
-        $this->routing = new Routing ($request, $this->config);
-        $controller = $this->routing->controller();
+        $routing = new Routing ($request, $this->config);
+        $this->route = $routing->route();
+        $controller = $this->route->getController();
         $newController = new $controller;
-        $method = $this->routing->method();
-        return $newController->$method();
+        $method = $this->route->getMethod();
+        return call_user_func_array (array($newController,$method) , $this->route->getParams() );//$newController->$method();
 
         /*new SqlDatabase;
         $isDevMode = true;

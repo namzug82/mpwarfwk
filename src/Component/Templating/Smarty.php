@@ -22,6 +22,7 @@ class Smarty implements TemplatingInterface{
 
     public function render($template, $name, $string)
     {
+
         $this->smartyInstance->assign($name, $string);
         return $this->smartyInstance->display($template);
     }
