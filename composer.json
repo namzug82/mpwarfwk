@@ -4,15 +4,11 @@
 	"license":"Apache-2.0",
 	"type": "project",
 	"require": {
-<<<<<<< HEAD
 		"php": ">=5.3.2",
         "symfony/yaml" : "2.6.*",
         "smarty/smarty": "3.1.*",
         "twig/twig": "1.18.0",
         "doctrine/orm": "2.5.*"
-=======
-		"php": ">=5.3.2"
->>>>>>> origin/develop
 	},
 
 
