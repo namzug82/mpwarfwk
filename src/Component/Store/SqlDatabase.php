@@ -8,14 +8,9 @@
 
 namespace src\Component\Store;
 
-<<<<<<< HEAD
 use src\Component\Config\ConfigFactory;
 
 class SqlDatabase {
-=======
-
-abstract class SqlDatabase {
->>>>>>> origin/develop
 
     protected $dbHandler;
     protected $result;
@@ -26,7 +21,6 @@ abstract class SqlDatabase {
 
     public function __construct(){
         $config  = require("../app/Config/appConfig.php");
-<<<<<<< HEAD
         if($config["env"] == 'dev'){
             $config  = require("../app/Config/dev/databaseConfig.php");
         }else{
@@ -41,16 +35,6 @@ abstract class SqlDatabase {
     }
     //abstract protected function connect();
     //abstract protected function disconnect();
-=======
-        $config =  ConfigFactory::build($config["configType"]);
-        $this->host = $config->routes();
-        $this->user = $config->routes();
-        $this->pass = $config->routes();
-        $this->dbname = $config->routes();
-    }
-    abstract protected function connect();
-    abstract protected function disconnect();
->>>>>>> origin/develop
 
     public function query($query) {
         $this->result = $this->dbHandler->prepare($query);

@@ -6,11 +6,7 @@
  * Time: 15:10
  */
 
-<<<<<<< HEAD
 namespace src\Component\Config;
-=======
-namespace src\component\Config;
->>>>>>> origin/develop
 
 
 
