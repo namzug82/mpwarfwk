@@ -2,13 +2,20 @@
 
 namespace src\Component\Routes;
 
-abstract class Route {
+use src\Component\Config\ConfigFactory;
 
-    protected $routingConfig;
-    private $url;
-    function __construct($url)
+
+class Routing {
+
+    private $routingConfig;
+    private $appConfig;
+    private $request;
+
+
+    function __construct($request, $config)
     {
-        $this->url = $url;
+        $this->request = strtolower($request->server->getValue('REQUEST_URI'));
+        $this->appConfig = $config;
     }
 
     public function controller()
@@ -23,69 +30,69 @@ abstract class Route {
 
     private function route()
     {
-        var_dump($this->parseConfigToArray());
-        /*foreach($this->routingConfig as $currentRoute){
-            $route = trim(filter_var($currentRoute, FILTER_SANITIZE_URL), '/');
+        $url = strtolower($this->request->server->getValue('REQUEST_URI'));
+        $url = $this->parseUrl($url);
+        $this->parseConfigToArray();
+
+        foreach($this->routingConfig as $routeKey => $currentRoute){
+            $route = trim(filter_var(strtolower($routeKey), FILTER_SANITIZE_URL), '/');
             $route = explode('/', $route);
-            if(isValidRoute($this->url, $route)) var_dump($this->url, $currentRoute, $_GET);
+
+            if($this->isValidRoute($url, $route)) return $currentRoute;
+
         }
-        $route = $this->parseUrl();
-        if(!array_key_exists($route, $this->routingConfig)){
-            throw new \Exception("No existe la ruta en el fichero de configuración");
-        }
-        return $this->routingConfig[$route];*/
+        throw new \Exception("Route not exists");
+
     }
 
-    private function parseUrl()
+    private function parseUrl($url)
     {
-        $url = trim(filter_var($this->url, FILTER_SANITIZE_URL), '/');
+        $url = trim(filter_var($url, FILTER_SANITIZE_URL), '/');
         return explode('/', $url);
     }
 
-    function isValidRoute($url, $route)
+    private function isValidRoute($url, $route)
     {
-
-        if(count($url) != count($route)) {
-            return false;
-        }
-        return checkRoute($url, $route);
+        return (count($url) == count($route) && $this->checkRoute($url, $route));
     }
 
-    function checkRoute($url, $route)
+    private function checkRoute($url, $route)
     {
 
         $isValid = true;
         for($i=0;$i<count($url);$i++){
-
             $urlSection   = $url[$i];
             $routeSection = $route[$i];
 
-            if($param = isParam($routeSection)){
-                saveParam( $urlSection,$param);
+            if($param = $this->isParam($routeSection)){
+                $this->saveParam( $urlSection,$param);
                 continue;
             }
-
             if ($urlSection == $routeSection) continue;
             $isValid = false;
         }
         return $isValid;
     }
 
-    function isParam($paramRoute)
+    private function isParam($paramRoute)
     {
 
         if(substr($paramRoute,0,1) == '{' && substr($paramRoute,-1) == '}'){
-
             return substr($paramRoute, 1, -1);
         }
         return false;
     }
 
-    function saveParam($url, $paramVar){
-        $_GET[$paramVar] = $url;
-        var_dump($_GET);
+    private function saveParam($url, $paramVar){
+
+        $this->request->get->setParameter(array($paramVar => $url));
+
     }
 
-    abstract protected function parseConfigToArray();
+    private function parseConfigToArray(){
+
+        $config =  ConfigFactory::build($this->appConfig["configType"]);
+        $this->routingConfig = $config->routes();
+    }
 
 }
