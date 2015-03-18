@@ -22,25 +22,16 @@ class Routing {
 
     }
 
-   /* public function controller()
-    {
-        return key($this->route());
-    }
-
-    public function method()
-    {
-        return $this->route()[key($this->route())];
-    }*/
 
     public function route()
     {
 
-        $url = strtolower($this->request->server->getValue('REQUEST_URI'));
+        $url = $this->request->server->getValue('REQUEST_URI');
         $url = $this->parseUrl($url);
         $this->parseConfigToArray();
 
         foreach($this->routingConfig as $routeKey => $currentRoute){
-            $route = trim(filter_var(strtolower($routeKey), FILTER_SANITIZE_URL), '/');
+            $route = trim(filter_var($routeKey, FILTER_SANITIZE_URL), '/');
             $route = explode('/', $route);
 
             if($this->isValidRoute($url, $route)){
@@ -77,7 +68,7 @@ class Routing {
                 $this->saveParam( $urlSection,$param);
                 continue;
             }
-            if ($urlSection == $routeSection) continue;
+            if (strtolower($urlSection) == strtolower($routeSection)) continue;
             $isValid = false;
         }
         return $isValid;

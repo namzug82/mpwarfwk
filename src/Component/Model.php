@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Ricardo
- * Date: 16/03/2015
- * Time: 15:53
- */
 
 namespace src\Component;
 

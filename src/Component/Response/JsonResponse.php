@@ -13,10 +13,12 @@ class JsonResponse extends Response{
 
     public function send(){
 
+
         if(!is_array($this->content)){
             $this->content = array($this->content);
         }
+        header("Content-Type: application/json");
 
-        return json_encode($this->content);
+        echo json_encode($this->content);
     }
 }

@@ -15,11 +15,8 @@ class ConfigPhp implements ConfigInterface{
 
     public function routes()
     {
-        return require("../app/Config/php/routingConfig.php");
+        return require("../app/Routing/php/routingConfig.php");
     }
 
-    public function database()
-    {
-        return require("../app/Config/php/databaseConfig.php");
-    }
+
 }

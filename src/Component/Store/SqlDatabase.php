@@ -1,61 +1,71 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Ricardo
- * Date: 16/03/2015
- * Time: 15:55
- */
 
 namespace src\Component\Store;
 
-use src\Component\Config\ConfigFactory;
+class SqlDatabase extends \PDO
+{
 
-class SqlDatabase {
-
-    protected $dbHandler;
-    protected $result;
-    private $host;
-    private $user;
-    private $pass;
-    private $dbname;
-
-    public function __construct(){
-        $config  = require("../app/Config/appConfig.php");
-        if($config["env"] == 'dev'){
-            $config  = require("../app/Config/dev/databaseConfig.php");
-        }else{
-            $config  = require("../app/Config/databaseConfig.php");
+    public function __construct($DB_TYPE, $DB_HOST, $DB_NAME, $DB_USER, $DB_PASS)
+    {
+        $options = array(
+            \PDO::ATTR_PERSISTENT => true,
+            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
+        );
+        try {
+            parent::__construct($DB_TYPE . ':host=' . $DB_HOST . ';dbname=' . $DB_NAME, $DB_USER, $DB_PASS, $options);
+        } catch (\PDOException $e) {
+            die($e->getMessage());
         }
-        $config =  ConfigFactory::build($config["configType"]);
-        var_dump($config->database()["mysql"]);
-        $this->host = $config->database()["mysql"]["host"];
-        $this->user = $config->database()["mysql"]["user"];
-        $this->pass = $config->database()["mysql"]["password"];
-        $this->dbname = $config->database()["mysql"]["database"];
-    }
-    //abstract protected function connect();
-    //abstract protected function disconnect();
-
-    public function query($query) {
-        $this->result = $this->dbHandler->prepare($query);
     }
 
-    public function bind($param, $value, $type = null){
-        if (is_null($type)) {
-            switch (true) {
-                case is_int($value):
-                    $type = PDO::PARAM_INT;
-                    break;
-                case is_bool($value):
-                    $type = PDO::PARAM_BOOL;
-                    break;
-                case is_null($value):
-                    $type = PDO::PARAM_NULL;
-                    break;
-                default:
-                    $type = PDO::PARAM_STR;
-            }
+    public function selectAll($table, $fetchMode = \PDO::FETCH_ASSOC)
+    {
+        $sql = "SELECT * FROM $table;";
+        $sth = $this->prepare($sql);
+        $sth->execute();
+        return $sth->fetchAll($fetchMode);
+    }
+
+    public function select($sql, $array = array(), $fetchMode = \PDO::FETCH_ASSOC)
+    {
+        $sth = $this->prepare($sql);
+        foreach ($array as $key => $value) {
+            $sth->bindValue(":$key", $value);
         }
-        $this->stmt->bindValue($param, $value, $type);
+        $sth->execute();
+        return $sth->fetchAll($fetchMode);
+    }
+
+    public function insert($table, $data)
+    {
+        ksort($data);
+        $fieldNames = implode('`, `', array_keys($data));
+        $fieldValues = ':' . implode(', :', array_keys($data));
+
+        $sth = $this->prepare("INSERT INTO $table ('$fieldNames') VALUES ($fieldValues)");
+        foreach ($data as $key => $value) {
+            $sth->bindValue(":$key", $value);
+        }
+        $sth->execute();
+    }
+
+    public function update($table, $data, $where)
+    {
+        ksort($data);
+        $fieldDetails = NULL;
+        foreach ($data as $key => $value) {
+            $fieldDetails .= "`$key`=:$key,";
+        }
+        $fieldDetails = rtrim($fieldDetails, ',');
+        $sth = $this->prepare("UPDATE $table SET $fieldDetails WHERE $where");
+        foreach ($data as $key => $value) {
+            $sth->bindValue(":$key", $value);
+        }
+        $sth->execute();
+    }
+
+    public function delete($table, $where, $limit = 1)
+    {
+        return $this->exec("DELETE FROM $table WHERE $where LIMIT $limit");
     }
 }

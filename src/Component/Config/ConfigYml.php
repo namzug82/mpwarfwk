@@ -19,11 +19,7 @@ class ConfigYml implements ConfigInterface{
     }
     public function routes()
     {
-        return $this->yml->parse(file_get_contents('../app/Config/yml/routingConfig.yml'));
+        return $this->yml->parse(file_get_contents('../app/Routing/yml/routingConfig.yml'));
     }
 
-    public function database()
-    {
-        return $this->yml->parse(file_get_contents('../app/Config/yml/databaseConfig.yml'));
-    }
 }

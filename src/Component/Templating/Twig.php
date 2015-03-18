@@ -20,17 +20,21 @@ class Twig implements TemplatingInterface {
         $this->twigInstance      = new \Twig_Environment( $loader, $options );
     }
 
-    public function render($template,$name, $string)
+    public function render($template,$name = null, $string = array())
     {
         return $this->twigInstance->render($template, array($name => $string));
     }
 
     private function options(){
         $config  = require("../app/Config/appConfig.php");
-        ($config["env"] = 'prod')? $debug = false : $debug = true;
+        $cache = '../app/View/cache';
+        $debug = false;
+        if($config["env"] = 'dev'){
+            $debug = true; $cache = false;
+        }
 
         return array(
-            'cache'  => '../app/View/cache',
+            'cache'  => $cache,
             'debug'  => $debug
         );
     }

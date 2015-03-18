@@ -15,14 +15,12 @@ class Bootstrap {
 
     private $route;
     private $config;
+    private $databaseConfig;
 
-
-
-    public function __construct($config)
+    public function __construct($config, $databaseConfig)
     {
-
         $this->config  = $config;
-
+        $this->databaseConfig  = $databaseConfig;
     }
 
     public function execute(Request $request){
@@ -31,9 +29,9 @@ class Bootstrap {
         $routing = new Routing ($request, $this->config);
         $this->route = $routing->route();
         $controller = $this->route->getController();
-        $newController = new $controller;
         $method = $this->route->getMethod();
-        return call_user_func_array (array($newController,$method) , $this->route->getParams() );//$newController->$method();
+        $newController = new $controller($this->config,$this->databaseConfig );
+        return call_user_func_array (array($newController,$method) , $this->route->getParams() );
 
         /*new SqlDatabase;
         $isDevMode = true;
@@ -47,6 +45,10 @@ class Bootstrap {
 
 
 
+
+    }
+
+    public function getDatabaseConfig($database){
 
     }
 
