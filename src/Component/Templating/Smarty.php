@@ -12,15 +12,16 @@ namespace src\Component\Templating;
 class Smarty implements TemplatingInterface{
     private $smartyInstance;
 
-    public function __construct()
+    public function __construct(\Smarty $smarty)
     {
-        $this->smartyInstance = new \Smarty;
-        $this->smartyInstance->template_dir = '../app/View';
-        $this->smartyInstance->cache_dir = '../app/View/cache';
-        $this->smartyInstance->caching = $this->options();
+        $this->smartyInstance = $smarty;
+        $this->smartyInstance->compile_dir      =   "../app/View/templates_c";
+        $this->smartyInstance->template_dir     = '../app/View';
+        $this->smartyInstance->cache_dir        = '../app/View/cache';
+        $this->smartyInstance->caching          = $this->options();
     }
 
-    public function render($template, $name, $string)
+    public function render($template, $name = null, $string = null)
     {
 
         $this->smartyInstance->assign($name, $string);

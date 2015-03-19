@@ -13,11 +13,11 @@ class Twig implements TemplatingInterface {
 
     private $twigInstance;
     const PATH_TEMPLATES = '../app/View';
-    public function __construct(){
+    public function __construct(\Twig_Loader_Filesystem $loader, \Twig_Environment $environment){
 
-        $options = $this->options();
-        $loader                 = new \Twig_Loader_Filesystem( self::PATH_TEMPLATES );
-        $this->twigInstance      = new \Twig_Environment( $loader, $options );
+        $loader->setPaths( self::PATH_TEMPLATES );
+        $environment->setLoader( $loader);
+        $this->twigInstance      = $this->options($environment);
     }
 
     public function render($template,$name = null, $string = array())
@@ -25,18 +25,19 @@ class Twig implements TemplatingInterface {
         return $this->twigInstance->render($template, array($name => $string));
     }
 
-    private function options(){
+    private function options(\Twig_Environment &$environment){
         $config  = require("../app/Config/appConfig.php");
         $cache = '../app/View/cache';
-        $debug = false;
-        if($config["env"] = 'dev'){
-            $debug = true; $cache = false;
-        }
 
-        return array(
-            'cache'  => $cache,
-            'debug'  => $debug
-        );
+        if($config["env"] = 'dev'){
+            $environment->enableDebug();
+            $environment->setCache(false);
+
+        }else{
+            $environment->disableDebug();
+            $environment->setCache($cache);
+        }
+        return $environment;
     }
 
 

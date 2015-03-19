@@ -27,16 +27,16 @@ class Routing {
     {
 
         $url = $this->request->server->getValue('REQUEST_URI');
-        $url = $this->parseUrl($url);
+        $url = $this->parsePath($url);
         $this->parseConfigToArray();
 
-        foreach($this->routingConfig as $routeKey => $currentRoute){
-            $route = trim(filter_var($routeKey, FILTER_SANITIZE_URL), '/');
-            $route = explode('/', $route);
+        foreach($this->routingConfig as $route => $controller_method){
+
+            $route = $this->parsePath($route);
 
             if($this->isValidRoute($url, $route)){
-                $controller = key($currentRoute);
-                $method = $currentRoute[key($currentRoute)];
+                $controller = key($controller_method);
+                $method = $controller_method[key($controller_method)];
                  return new Route($controller, $method, $this->params);
             }
 
@@ -45,11 +45,12 @@ class Routing {
 
     }
 
-    private function parseUrl($url)
+    private function parsePath($url)
     {
         $url = trim(filter_var($url, FILTER_SANITIZE_URL), '/');
         return explode('/', $url);
     }
+
 
     private function isValidRoute($url, $route)
     {
