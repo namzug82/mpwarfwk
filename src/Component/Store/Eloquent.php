@@ -7,8 +7,19 @@
  */
 
 namespace src\Component\Store;
-
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 class Eloquent {
+
+    public function __construct($databaseConfig){
+
+
+        $capsule = new Capsule;
+
+        $capsule->addConnection($databaseConfig);
+
+        $capsule->bootEloquent();
+
+    }
 
 }
