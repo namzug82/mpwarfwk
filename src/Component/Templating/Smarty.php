@@ -10,6 +10,7 @@ namespace src\Component\Templating;
 
 
 class Smarty implements TemplatingInterface{
+
     private $smartyInstance;
 
     public function __construct(\Smarty $smarty)

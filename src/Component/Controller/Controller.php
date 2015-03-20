@@ -18,24 +18,18 @@ abstract class Controller {
     protected $request;
 
 
-    public function __construct($appConfig, $databaseConfig, Request $request)
+    public function __construct($appConfig, Request $request)
     {
         $this->request = $request;
-        $this->template = $this->template();
+        $this->template = new Container();
+        $this->container = new Container();
 
-        $db_type = $appConfig["db_type"];
-       /* $this->database = new SqlDatabase(
-            $db_type,
-            $databaseConfig[$db_type]["host"],
-            $databaseConfig[$db_type]["database"],
-            $databaseConfig[$db_type]["user"],
-            $databaseConfig[$db_type]["password"]
-        );*/
+
 
     }
-    private function template(){
+   /* private function template(){
         $services = new Services();
        return  $this->container = new Container($services->config());
 
-    }
+    }*/
 }

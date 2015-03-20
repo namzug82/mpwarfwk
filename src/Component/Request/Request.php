@@ -23,4 +23,8 @@ class Request {
 
     }
 
+    public function isAjaxRequest(){
+         return strtolower($this->server->getValue('HTTP_X_REQUESTED_WITH')) == 'xmlhttprequest';
+    }
+
 }

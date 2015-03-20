@@ -5,14 +5,22 @@ namespace src\Component\Store;
 class SqlDatabase extends \PDO
 {
 
-    public function __construct($DB_TYPE, $DB_HOST, $DB_NAME, $DB_USER, $DB_PASS)
+    public function __construct($databaseConfig)
     {
+
         $options = array(
             \PDO::ATTR_PERSISTENT => true,
             \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
         );
         try {
-            parent::__construct($DB_TYPE . ':host=' . $DB_HOST . ';dbname=' . $DB_NAME, $DB_USER, $DB_PASS, $options);
+
+            parent::__construct ($databaseConfig->getConfig("driver") .
+            ':host=' .$databaseConfig->getConfig("host") .
+            ';dbname=' . $databaseConfig->getConfig("database"),
+            $databaseConfig->getConfig("username"),
+            $databaseConfig->getConfig("password"),
+            $options);
+
         } catch (\PDOException $e) {
             die($e->getMessage());
         }
@@ -68,4 +76,6 @@ class SqlDatabase extends \PDO
     {
         return $this->exec("DELETE FROM $table WHERE $where LIMIT $limit");
     }
+
+
 }

@@ -12,7 +12,7 @@ namespace src\Component\Config;
 class Services {
 
     public function config(){
-        return array (
+        return array_merge(array (
 
             'Twig' => array(
                 "Controller" => 'src\Component\Templating\Twig',
@@ -22,8 +22,25 @@ class Services {
                 "Controller" => 'src\Component\Templating\Smarty',
                 "Arguments" => array('\Smarty')
             ),
+            'appConfig' => array(
+                "Controller" => 'src\Component\Config\AppConfig',
+                "Arguments" => array()
+            ),
+            'databaseConfig' => array(
+                "Controller" => 'src\Component\Config\DatabaseConfig',
+                "Arguments" => array('@appConfig')
+            ),
+            'SqlDatabase' => array(
+                "Controller" => 'src\Component\Store\SqlDatabase',
+                "Arguments" => array('@databaseConfig')
+            ),
+            'Eloquent' => array(
+                "Controller" => 'src\Component\Store\Eloquent',
+                "Arguments" => array('@databaseConfig')
+            ),
 
 
-        );
+        ),require("../app/Config/services.php"));
+
     }
 }

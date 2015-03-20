@@ -20,7 +20,7 @@ class Parameter {
 
     public function getValue($key){
         if(!isset($this->parameter[$key])){
-            throw new \Exception("Not a valid param!");
+            return null;
         }
         return $this->parameter[$key];
     }

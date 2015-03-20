@@ -18,17 +18,23 @@ class Session {
             session_start();
         }
         $this->session = $_SESSION;
-        $_SESSION = array();
     }
 
     public function getValue($key){
         if(!isset($this->session[$key])){
-            throw new \Exception("not a valid session param!");
+           return false;
         }
         return $this->session[$key];
     }
 
     public function setValue($key, $value){
          $this->session[$key] = $value;
+        $_SESSION[$key] = $value;
     }
+
+    public function close(){
+        session_destroy();
+    }
+
+
 }

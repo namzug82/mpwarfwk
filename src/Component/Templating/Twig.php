@@ -18,9 +18,10 @@ class Twig implements TemplatingInterface {
         $loader->setPaths( self::PATH_TEMPLATES );
         $environment->setLoader( $loader);
         $this->twigInstance      = $this->options($environment);
+        $this->twigInstance->addExtension(new \Twig_Extension_Debug());
     }
 
-    public function render($template,$name = null, $string = array())
+    public function render($template, $name = null, $string = array())
     {
         return $this->twigInstance->render($template, array($name => $string));
     }

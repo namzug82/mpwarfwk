@@ -23,8 +23,14 @@ class Response {
     public function send(){
         if($this->status != 200){
             header("HTTP/1.0 404 Not Found");
+
         }
         echo $this->content;
+    }
+
+    public function redirect($url){
+        Header( "HTTP/1.1 301 Moved Permanently" );
+        Header( "Location: ".$url );
     }
 
 }
