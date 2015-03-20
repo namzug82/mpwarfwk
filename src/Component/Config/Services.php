@@ -38,6 +38,14 @@ class Services {
                 "Controller" => 'src\Component\Store\Eloquent',
                 "Arguments" => array('@databaseConfig')
             ),
+            'LanguageConfig' => array(
+                "Controller" => 'app\Config\Language',
+                "Arguments" => array()
+            ),
+            'Language' => array(
+                "Controller" => 'src\Component\Language\Language',
+                "Arguments" => array('@LanguageConfig')
+            ),
 
 
         ),require("../app/Config/services.php"));
