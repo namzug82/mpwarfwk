@@ -92,7 +92,7 @@ class Routing {
 
     private function parseConfigToArray(){
 
-        $config =  ConfigFactory::build($this->appConfig["configType"]);
+        $config =  ConfigFactory::build($this->appConfig->configFileType());
         $this->routingConfig = $config->routes();
     }
 

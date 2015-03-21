@@ -22,20 +22,14 @@ class Bootstrap {
 
     public function execute(Request $request){
 
-        $services = new Services();
-        $container = new Container($services->config());
+
+        $container = new Container();
         $appConfig = $container->get("appConfig");
-        //$databaseConfig = $container->get("databaseConfig");
-        //new Eloquent($databaseConfig);
-        //$database =  $container->get("SqlDatabase");//   new SqlDatabase($databaseConfig);
 
-        $this->route = $this->routing($request);
+        $this->route = $this->routing($request, $appConfig);
+
         $controller = $this->route->getController();
-
         $method = $this->route->getMethod();
-
-
-
 
         $newController = new $controller($appConfig, $request );
 
@@ -47,15 +41,9 @@ class Bootstrap {
 
 
 
-    private function routing($request){
-        $routing = new Routing ($request, $this->getAppConfig());
+    private function routing($request, $appConfig){
+        $routing = new Routing ($request, $appConfig);
         return $routing->route();
-    }
-
-
-    private function getAppConfig(){
-
-        return  require("../app/Config/appConfig.php");
     }
 
 
