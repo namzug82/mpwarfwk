@@ -41,7 +41,7 @@ class Routing {
             }
 
         }
-        throw new \Exception("Route not exists");
+        throw new \Exception("Route not exists", 404);
 
     }
 
