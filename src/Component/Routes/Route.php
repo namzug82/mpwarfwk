@@ -23,25 +23,16 @@ class Route {
     }
 
 
-    /**
-     * @return mixed
-     */
     public function getParams()
     {
         return $this->params;
     }
 
-    /**
-     * @return mixed
-     */
     public function getController()
     {
         return $this->controller;
     }
 
-    /**
-     * @return mixed
-     */
     public function getMethod()
     {
         return $this->method;
