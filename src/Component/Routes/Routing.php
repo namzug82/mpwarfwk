@@ -40,7 +40,7 @@ class Routing {
                 $method = $controller_method[key($controller_method)];
                  return new Route($controller, $method, $this->params);
             }
-
+            $this->params = array();
         }
         throw new \Exception("Route not exists", 404);
 
