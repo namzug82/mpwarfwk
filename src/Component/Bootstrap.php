@@ -15,33 +15,38 @@ use src\Component\Store\Eloquent;
 use src\Component\Store\SqlDatabase;
 
 
-class Bootstrap {
+class Bootstrap
+{
 
     private $route;
 
 
-    public function execute(Request $request){
+    public function execute(Request $request)
+    {
 
 
-        $container = new Container();
-        $appConfig = $container->get("appConfig");
+            $container = new Container();
+            $appConfig = $container->get("appConfig");
 
-        $this->route = $this->routing($request, $appConfig);
+            $this->route = $this->routing($request, $appConfig);
+            $controller = $this->route->getController();
 
-        $controller = $this->route->getController();
-        $method = $this->route->getMethod();
+            $method = $this->route->getMethod();
+            $newController = new $controller($appConfig, $request);
 
-        $newController = new $controller($appConfig, $request );
 
-        return call_user_func_array (array($newController,$method) , $this->route->getParams() );
+            $value = call_user_func_array(array($newController, $method), $this->route->getParams());
 
+
+
+        return $value;
 
 
     }
 
 
-
-    private function routing($request, $appConfig){
+    private function routing($request, $appConfig)
+    {
         $routing = new Routing ($request, $appConfig);
         return $routing->route();
     }

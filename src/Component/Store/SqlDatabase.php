@@ -10,13 +10,16 @@ class SqlDatabase extends \PDO
 
         $options = array(
             \PDO::ATTR_PERSISTENT => true,
-            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
+            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+            \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
         );
         try {
 
             parent::__construct ($databaseConfig->getConfig("driver") .
             ':host=' .$databaseConfig->getConfig("host") .
-            ';dbname=' . $databaseConfig->getConfig("database"),
+            ';port=' . $databaseConfig->getConfig("port") .
+            ';dbname=' . $databaseConfig->getConfig("database") .
+            ";charset=UTF8",
             $databaseConfig->getConfig("username"),
             $databaseConfig->getConfig("password"),
             $options);

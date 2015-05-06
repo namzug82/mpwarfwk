@@ -28,6 +28,7 @@ class Routing {
 
         $url = $this->request->server->getValue('REQUEST_URI');
         $url = $this->parsePath($url);
+        $this->request->get = $url;
         $this->parseConfigToArray();
 
         foreach($this->routingConfig as $route => $controller_method){
