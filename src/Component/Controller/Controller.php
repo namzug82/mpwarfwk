@@ -38,6 +38,7 @@ abstract class Controller
 
     protected function cacheGet($class, $method, $params = null ){
         $cacheKey = $this->generateCacheKey($class, $method, $params);
+
         if($cache = $this->memcache->get($cacheKey)){
             return $cache;
         }

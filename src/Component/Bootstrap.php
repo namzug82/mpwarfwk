@@ -51,5 +51,10 @@ class Bootstrap
         return $routing->route();
     }
 
+    public function browserCache($timestamp ){
+
+
+    }
+
 
 }

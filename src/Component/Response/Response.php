@@ -25,6 +25,7 @@ class Response {
             header("HTTP/1.0 404 Not Found");
 
         }
+        header( "Cache-Control: public, max-age=60, smaxage=60" );
         echo $this->content;
     }
 

@@ -12,7 +12,7 @@ class MemoryCache extends DiskCache {
     }
     public function set($key, $component, $expiration)
     {
-        $this->memCache->set($key, $component, $expiration);
+        return $this->memCache->set($key, $component,$expiration );
 
     }
 
