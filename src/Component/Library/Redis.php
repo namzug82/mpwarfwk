@@ -4,12 +4,24 @@
 namespace src\Component\Library;
 
 
-class Redis {
+use Predis\Client;
+
+class Redis
+{
 
 
     private $client;
-    public function __construct(){
 
-        $client = new Predis\Client();
+    public function __construct()
+    {
+
+        $this->client = new Client('tcp://127.0.0.1:6379');
+
     }
+
+    public function client()
+    {
+        return $this->client;
+    }
+
 }

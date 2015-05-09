@@ -6,6 +6,7 @@ namespace src\Component;
 use src\Component\Config\AppConfig;
 use src\Component\Config\DatabaseConfig;
 use src\Component\Config\Services;
+use src\Component\Library\MemoryCache;
 use src\Component\Request\Request;
 use src\Component\Routes\Routing;
 
@@ -19,6 +20,7 @@ class Bootstrap
 {
 
     private $route;
+    private $memcache;
 
 
     public function execute(Request $request)
@@ -27,7 +29,6 @@ class Bootstrap
 
             $container = new Container();
             $appConfig = $container->get("appConfig");
-
             $this->route = $this->routing($request, $appConfig);
             $controller = $this->route->getController();
 
@@ -43,7 +44,24 @@ class Bootstrap
 
 
     }
+    private function cacheGet($class, $method, $params = null ){
+        $cacheKey = $this->generateCacheKey($class, $method, $params);
 
+        if($cache = $this->memcache->get($cacheKey)){
+            return $cache;
+        }
+
+        return false;
+    }
+    private function generateCacheKey($class, $method, array $params = null)
+    {
+        $key = $method;
+        if ($params) {
+            $key .= implode($params);
+        }
+        return $class . "_" . md5($key);
+
+    }
 
     private function routing($request, $appConfig)
     {
@@ -51,10 +69,6 @@ class Bootstrap
         return $routing->route();
     }
 
-    public function browserCache($timestamp ){
-
-
-    }
 
 
 }

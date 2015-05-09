@@ -30,10 +30,10 @@ class Twig implements TemplatingInterface {
         $config  = require("../app/Config/appConfig.php");
         $cache = '../app/View/cache';
 
-        if($config["env"] = 'dev'){
+        if("dev" == $config["env"]){
+
             $environment->enableDebug();
             $environment->setCache(false);
-
         }else{
             $environment->disableDebug();
             $environment->setCache($cache);
