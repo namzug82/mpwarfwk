@@ -25,7 +25,8 @@ class SqlDatabase extends \PDO
             $options);
 
         } catch (\PDOException $e) {
-            die($e->getMessage());
+            var_dump($e->getMessage());
+           exit();
         }
     }
 

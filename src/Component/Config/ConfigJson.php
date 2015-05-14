@@ -1,6 +1,6 @@
 <?php
 
-namespace src\component\Config;
+namespace src\Component\Config;
 
 
 class ConfigJson implements ConfigInterface{
