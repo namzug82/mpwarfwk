@@ -22,6 +22,7 @@ class Services {
                 "Controller" => 'src\Component\Templating\Smarty',
                 "Arguments" => array('\Smarty')
             ),
+
             'appConfig' => array(
                 "Controller" => 'src\Component\Config\AppConfig',
                 "Arguments" => array()
