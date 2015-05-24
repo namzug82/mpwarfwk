@@ -19,7 +19,7 @@ class MemoryCache extends DiskCache {
     }
     public function set($key, $component, $expiration)
     {
-        if("dev" != $this->env){
+        if("dev" == $this->env){
             return null;
         }
         return $this->memCache->set($key, $component,$expiration );
@@ -28,7 +28,7 @@ class MemoryCache extends DiskCache {
 
     public function get($key)
     {
-        if("dev" != $this->env){
+        if("dev" == $this->env){
             return null;
         }
         return $this->memCache->get($key);
@@ -37,7 +37,7 @@ class MemoryCache extends DiskCache {
 
     public function delete($key)
     {
-        if("dev" != $this->env){
+        if("dev" == $this->env){
             return null;
         }
         $this->memCache->delete($key);
